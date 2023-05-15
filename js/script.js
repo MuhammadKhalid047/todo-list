@@ -1,4 +1,4 @@
-function toggleFunction() {
+  function toggleFunction() {
     var x = document.getElementById("nav-bar");
     x.classList.toggle("nav-toggle");
     var y = document.getElementsByClassName("detail")[0];
@@ -6,63 +6,27 @@ function toggleFunction() {
     var z = document.getElementsByTagName("body")[0];
     z.classList.toggle("body-margin");
   }
+
+
   function toggleRight(){
     var x = document.getElementsByClassName("right-slider")[0];
     x.classList.toggle("right-slider-toggle");
     var z = document.getElementsByTagName("body")[0];
     z.classList.toggle("body-right-slider");
   }
-  function dropdown(){
-    var x = document.getElementById("dropdown");
-    x.classList.toggle("d-none");
-  }
-  function newTask() {
-    var li = document.createElement("li");
-    li.classList.add("d-flex","toboCheckli", "align-items-center", "justify-content-space-between");
-    var liLength = document.getElementsByClassName("toboCheckli").length;
-    document.getElementsByClassName("todoCount")[0].innerHTML = liLength;
-    document.getElementsByClassName("todayTask")[0].innerHTML = liLength;
-    
-    var inputTitle = document.getElementById("inputTitle").value;
-    var inputDescription = document.getElementById("inputDescription").value;
-    var dueDate = document.getElementById("due-date").value;
-    var subtaskList = document.getElementById("subtaskList").value;
-    var a = document.createTextNode(inputTitle);
-    var b = document.createTextNode(inputDescription);
-    var d = document.createTextNode(dueDate);
-    var e = document.createTextNode(subtaskList);
-    var div1 = document.createElement("div");
 
-    var innerDiv = document.createElement("div");
-    innerDiv.classList.add("p-1", "d-flex", "gap-2", "todo-li");
+  var today = new Date();
+  var dd = String(today.getDate()).padStart(2, '0');
+  var mm = String(today.getMonth() + 1).padStart(2, '0');
+  var yyyy = today.getFullYear();
+  today = mm + '/' + dd + '/' + yyyy;
+  document.getElementById("today").innerHTML = today ;
 
-    var checkbox = document.createElement("input");
-    checkbox.type = "checkbox";
-    checkbox.name = "task";
-    checkbox.id = "task";
-    checkbox.value = "task";
-
-    var label = document.createElement("label");
-    label.htmlFor = "task";
-    label.appendChild(a);
-
-    innerDiv.appendChild(checkbox);
-    innerDiv.appendChild(label);
-
-    var dateDiv = document.createElement("div");
-    dateDiv.classList.add("todo-li-date", "d-flex", "gap-2");
-
-    var dateSpan = document.createElement("span");
-    dateSpan.classList.add("d-flex", "gap-1", "align-items-center", "font-12", "p-1");
-    dateSpan.innerHTML = '<img src="img/calendar.png" alt="" width="15px">';
-    dateSpan.appendChild(d);
-
-    var subtaskSpan = document.createElement("span");
-    subtaskSpan.classList.add("d-flex", "gap-1", "align-items-center", "font-12", "p-1");
-    subtaskSpan.innerHTML = '<span class="subtaskCount">'+ document.getElementById("subtaskList").getElementsByTagName("li").length+'</span>Subtasks';
-
-    var categorySpan = document.createElement("span");
-    categorySpan.classList.add("d-flex", "gap-1", "align-items-center", "font-12", "p-1");
+  window.onload = function() {
+    loadTasks();
+  };
+  
+  function colorChange(){
     var listcol = document.getElementById("list");
     var value = listcol.value;
     if (value === "personal") {
@@ -72,114 +36,207 @@ function toggleFunction() {
     }else{
       categorySpan.innerHTML = '<span class="blue"></span>Friends';
     }
-
-    var descriptionSub = document.createElement("p");
-    descriptionSub.classList.add("font-12","moreHover","font-bold", "p-1" ,"pointer");
-    descriptionSub.onclick = dropdown;
-    descriptionSub.innerHTML ="More"
-
-    var descriptionSubtask = document.createElement("div");
-    descriptionSubtask.classList.add("dropdown-content","d-none","mt-2")
-    var descriptiontag =document.createElement("h4");
-    descriptiontag.innerHTML = "Description"
-    var descriptionPara = document.createElement("p");
-    descriptionPara.classList.add("font-14","mt-2");
-    descriptionPara.appendChild(b);
-    var subtasktag =document.createElement("h4");
-    subtasktag.classList.add("mt-2");
-    subtasktag.innerHTML ="Subtasks";
-    var olSubtaskAdd = document.createElement("ol");
-    olSubtaskAdd.classList.add("subtaskAdd","font-14","d-flex-col","gap-1","mt-2","listStyle-decimal")
-    var liSubtaskAdd = document.createElement("li");
-    liSubtaskAdd.classList.add("listStyle-decimal");
-    liSubtaskAdd.appendChild(e);
-    olSubtaskAdd.appendChild(liSubtaskAdd);
-    dateDiv.appendChild(dateSpan);
-    dateDiv.appendChild(subtaskSpan);
-    dateDiv.appendChild(categorySpan);
-    dateDiv.appendChild(descriptionSub);
-    descriptionSubtask.appendChild(descriptiontag);
-    descriptionSubtask.appendChild(descriptionPara);
-    descriptionSubtask.appendChild(subtasktag);
-    descriptionSubtask.appendChild(olSubtaskAdd);
-    div1.appendChild(innerDiv);
-    div1.appendChild(dateDiv);
-    div1.appendChild(descriptionSubtask);
-
-    var div2 = document.createElement("div");
-
-    var link = document.createElement("a");
-    link.href = "#";
-    link.onclick = toggleRight;
-    link.innerHTML = '<img src="img/more-than.png" alt="" width="20px">'
-
-    // var img = document.createElement("img");
-    // img.src = "img/more-than.png";
-    // img.alt = "Arrow";
-    // img.width = "20px";
-
-    // link.appendChild(img);
-
-    div2.appendChild(link);
+  }
+  function newTask() {
+    var inputTitle = document.getElementById("inputTitle");
+    var descriptionInput = document.getElementById('inputDescription');
+    var listInput = document.getElementById('list');
+    var dueDateInput = document.getElementById('due-date');
+    var subtaskList = document.getElementById("subtaskList");
     
-    li.appendChild(div1);
-    li.appendChild(div2);
-
-    // li.appendChild(a);
-    // li.appendChild(b);
-    // li.appendChild(d);
-    // li.appendChild(e);
-    if (inputTitle === "" || inputDescription === "" || dueDate === ""|| subtaskList === "") {
-      alert("Fill the todo");
-    } else {
-      document.getElementById("toboCheck").appendChild(li) = html;
+    
+    var inputTitleValue = inputTitle.value;
+    var descriptionInputValue = descriptionInput.value;
+    var listInputValue = listInput.value;
+    var dueDateInputValue = dueDateInput.value;
+    var subtaskListValue = subtaskList.value;
+    
+    if (inputTitleValue.trim() === "" || descriptionInputValue.trim() === "") {
+      alert("Please enter a Title.");
+      return;
     }
-    document.getElementById("inputTitle").value = "";
-    document.getElementById("inputDescription").value ="";
-    document.getElementById("due-date").value = "";
-    document.getElementById("subtaskList").value ="";
-  } 
+  
+    var tasks = getTasks();
+    tasks.push({
+      title: inputTitleValue,
+      description: descriptionInputValue,
+      list: listInputValue,
+      dueDate: dueDateInputValue,
+      subTask :subtaskListValue
+    });
+  
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+    inputTitle.value = "";
+    descriptionInput.value = "";
+    listInput.value = "";
+    dueDateInput.value = "";
+    subtaskList.value = "";
+    displayTasks();
+  }
+  
+  function editTask(index) {
+    var tasks = getTasks();
+    var task = tasks[index];
+    
+    var inputTitle = document.getElementById("inputTitle");
+    var descriptionInput = document.getElementById('inputDescription');
+    var listInput = document.getElementById('list');
+    var dueDateInput = document.getElementById('due-date');
+    
+    inputTitle.value = task.title;
+    descriptionInput.value = task.description;
+    listInput.value = task.list;
+    dueDateInput.value = task.dueDate;
+    
+    tasks.splice(index, 1);
+    
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+    displayTasks();
+  }
   
 
-
-function newElement() {
-  var li = document.createElement("li");
-  var inputValue = document.getElementById("subtaskInput").value;
-  var t = document.createTextNode(inputValue);
-  li.appendChild(t);
-  if (inputValue === '') {
-    alert("You must write something!");
-  } else {
-    document.getElementById("subtaskList").appendChild(li);
+  function removeTask(index) {
+    var tasks = getTasks();
+    tasks.splice(index, 1);
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+    displayTasks();
   }
-  document.getElementById("subtaskInput").value = "";
+  
+  function getTasks() {
+    var tasks = localStorage.getItem("tasks");
+    if (tasks) {
+      return JSON.parse(tasks);
+    }
+    return [];
+  }
+ 
 
-  var span = document.createElement("SPAN");
-  var txt = document.createTextNode("\u00D7");
-  span.className = "close";
-  span.appendChild(txt);
-  li.appendChild(span);
+  function displayTasks() {
+    var todoList = document.getElementById("toboCheck");
+    todoList.innerHTML = "";
+  
+    var tasks = getTasks();
+    for (var i = 0; i < tasks.length; i++) {
+      var task = tasks[i];
+      var title = task.title;
+      var description = task.description;
+      var list = task.list;
+      var dueDate = task.dueDate;
+      var subTask = task.subTask;
+  
+      var newItem = document.createElement('li');
+      newItem.className = 'd-flex align-items-center justify-content-space-between toboCheckli';
+      var listClass = '';
+        if (list === 'Work') {
+          listClass = 'red';
+        } else if (list === 'Friends') {
+          listClass = 'blue';
+        }else{
+          listClass = 'green';
+        }
+        
+      newItem.innerHTML = `
+      <div class="">
+        <div class="p-1 d-flex gap-2 todo-li">
+          <input type="checkbox" name="task" id="taskCheck" value="task">
+          <label for="task">${title}</label>
+        </div>
+        <div class="todo-li-date d-flex align-items-center gap-2">
+          <span class="d-flex gap-1 align-items-center font-12 p-1"><img src="img/calendar.png" alt="" width="15px">${dueDate}</span>
+          <span class="d-flex gap-1 align-items-center font-12 p-1"><span class="subtaskCount">0</span>Subtasks</span>
+          <span class="d-flex gap-1 align-items-center font-12 p-1"><span class="${listClass}"></span>${list}</span>                        
+          <a href="detail.html" class="font-12 p-1 font-bold transition-3 moreHover pointer" onclick="dropdown()">More</a>
+        </div>
+        <div class="dropdown-content d-noe mt-2" id="dropdown">
+          <h4>Description</h4>
+          <p class="font-14 mt-2">${description}</p>
+          <h4 class="mt-2">Subtasks</h4>
+          <ol class="subtaskAdd font-14 d-flex-col gap-1 mt-2 listStyle-decimal">
+            ${subTask}
+          </ol>
+        </div>
+      </div>
+      
+      `;
+      var deleteLink = document.createElement('a');
+      deleteLink.href = "#";
+      deleteLink.className = "position-relative hover-drop";
 
+      var deleteImage = document.createElement('img');
+      deleteImage.src = "img/ellipsis.png";
+      deleteImage.alt = "Bar";
+      deleteImage.width = "17px";
+
+      var dropdownItems = document.createElement('div');
+      dropdownItems.className = "d-flex-col dropdownItems position-absolute";
+
+      var editSpan = document.createElement('span');
+      editSpan.textContent = "Edit";
+      editSpan.onclick=(function(index) {
+        return function() {
+          editTask(index);
+        };
+      })(i);
+
+      var deleteSpan = document.createElement('span');
+      deleteSpan.textContent = "Delete";
+      deleteSpan.onclick = (function(index) {
+        return function() {
+          removeTask(index);
+        };
+      })(i);
+
+      dropdownItems.appendChild(editSpan);
+      dropdownItems.appendChild(deleteSpan);
+
+      deleteLink.appendChild(deleteImage);
+      deleteLink.appendChild(dropdownItems);
+
+      var deleteContainer = document.createElement('div');
+      deleteContainer.appendChild(deleteLink);
+      newItem.appendChild(deleteContainer);
+
+      todoList.appendChild(newItem);
+
+    }
+  }
+
+  function loadTasks() {
+     getTasks();
+    displayTasks();
+  }
+
+
+  function newElement() {
+    var li = document.createElement("li");
+    var inputValue = document.getElementById("subtaskInput").value;
+    var t = document.createTextNode(inputValue);
+    li.appendChild(t);
+    if (inputValue === '') {
+      alert("You must write something!");
+    } else {
+      document.getElementById("subtaskList").appendChild(li);
+    }
+    document.getElementById("subtaskInput").value = "";
+  
+    var span = document.createElement("SPAN");
+    var txt = document.createTextNode("\u00D7");
+    span.className = "close";
+    span.appendChild(txt);
+    li.appendChild(span);
+  
+    for (i = 0; i < close.length; i++) {
+      close[i].onclick = function() {
+        var div = this.parentElement;
+        div.style.display = "none";
+      }
+    }
+  }
+  var close = document.getElementsByClassName("close");
+  var i;
   for (i = 0; i < close.length; i++) {
     close[i].onclick = function() {
       var div = this.parentElement;
       div.style.display = "none";
     }
   }
-}
-var close = document.getElementsByClassName("close");
-var i;
-for (i = 0; i < close.length; i++) {
-  close[i].onclick = function() {
-    var div = this.parentElement;
-    div.style.display = "none";
-  }
-}
-
-var today = new Date();
-var dd = String(today.getDate()).padStart(2, '0');
-var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-var yyyy = today.getFullYear();
-
-today = mm + '/' + dd + '/' + yyyy;
-document.getElementById("today").innerHTML = today ;

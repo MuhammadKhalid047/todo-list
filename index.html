@@ -22,9 +22,9 @@
                 <div class="tasks pt-4">
                     <h4 class="text-outer-space pt-2">Tasks</h4>
                     <ul class="font-14 text-outer-space task-list">
-                        <a href="#"><li><img src="img/right.png" alt="right" width="15px"> Upcoming <span class="numTask">0</span> </li></a>
-                        <a href="#"><li><img src="img/checklist.png" alt="checklist" width="15px"> Today <span class="todayTask">0</span></li></a>
-                        <a href="#"><li><img src="img/calendar.png" alt="calendar" width="15px"> Calender</li></a>
+                        <a href="#"><li><img src="img/right.png" alt="right" width="15px"> All <span class="numTask">0</span> </li></a>
+                        <a href="#"><li><img src="img/checklist.png" alt="checklist" width="15px"> Pending <span class="todayTask">0</span></li></a>
+                        <a href="#"><li><img src="img/calendar.png" alt="calendar" width="15px"> Complete</li></a>
                     </ul>
                 </div>
             </div>
@@ -41,71 +41,41 @@
                 <a href="#"  class="d-flex align-items-center gap-1 p-2 br-2 "onclick="toggleRight()"><img src="img/plus.svg" alt="plus" width="15px">Add New Task</a>
             </div>
             <ul id="toboCheck" class="mt-3">
-                <li class="d-flex align-items-center justify-content-space-between toboCheckli">
-                    <div class="">
-                        <div class="p-1 d-flex gap-2 todo-li">
-                            <input type="checkbox" name="task" id="task" value="task">
-                            <label for="task">GYM</label>
-                        </div>
-                        <div class="todo-li-date d-flex align-items-center gap-2">
-                            <span class="d-flex gap-1 align-items-center font-12 p-1"><img src="img/calendar.png" alt="" width="15px">28/07/2023</span>
-                            <span class="d-flex gap-1 align-items-center font-12 p-1"><span class="subtaskCount">1</span>Subtasks</span>
-                            <span class="d-flex gap-1 align-items-center font-12 p-1"><span class="green"></span>Personal</span>                        
-                            <p class="font-12 p-1 font-bold transition-3 moreHover pointer" onclick="dropdown()">More</p>
-                        </div>
-                        <div class="dropdown-content d-none mt-2" id="dropdown">
-                            <h4>Description</h4>
-                            <p class="font-14 mt-2">leom pao kaea siri yaro likse pricx mijow wicn lsec wika dnes jaexna de meyoleom pao kaea siri yaro likse pricx mijow wicn lsec wika dnes jaexna de meyoleom pao kaea siri yaro likse pricx mijow wicn lsec wika dnes jaexna de meyoleom pao kaea siri yaro likse pricx mijow wicn lsec wika dnes jaexna de meyoleom pao kaea siri yaro likse pricx mijow wicn lsec wika dnes jaexna de meyoleom pao kaea siri yaro likse pricx mijow wicn lsec wika dnes jaexna de meyo </p>
-                            <h4 class="mt-2">Subtasks</h4>
-                            <ol class="subtaskAdd font-14 d-flex-col gap-1 mt-2 listStyle-decimal">
-                                <li>Bench press</li>
-                                <li>dead lift</li>
-                                <li>Bench press</li>
-                                <li>dead lift</li>
-                            </ol>
-                        </div>
-                    </div>
-                    <div>
-                        <a href="#" onclick="toggleRight()">
-                            <img src="img/more-than.png" alt="" width="20px">
-                        </a>
-                    </div>
-                </li>
             </ul>
         </div>
         <!-- RIGHT SIDE SLIDER -->
         <div class="right-slider p-4 br-2" id="right-slider">
             <div class="newTask">
-                <h2>Tasks</h2>
-                <form action="" method="post">
-                    <input type="text" class=" font-14d-block w-100 br-1 p-2 mt-3 newTask-input" id="inputTitle" placeholder="Task Title">
-                    <textarea name="description" placeholder="Description" id="inputDescription" class="font-14 d-block w-100 br-1 p-2 mt-3 newTask-input-description" rows="3"></textarea>
-                    <label for="list" class="mt-3 p-1 font-14">List</label>
-                    <select id="list" name="list" class="font-14 mt-3 br-1">
-                        <option value="personal"class="font-14">Personal</option>
-                        <option value="Work" class="font-14">Work</option>
-                        <option value="Friends" class="font-14">Friends</option>
-                    </select>
-                    </br>
-                    <label for="due-date" class="font-14 mt-3 p-1 br-1">Due Date</label>
-                    <input type="date" name="due-date" id="due-date" class="font-14 mt-3 br-1">
-                    <br>
-                    <!-- <label for="tags">Tags</label> -->
-                    
-                    <h3 class="pt-4">Subtasks</h3>
-                    <div class=" pt-4 d-flex font-14">
-                        <input type="text" placeholder="+ Add Task" id="subtaskInput" class="br-1 subtask-input p-1 border-none">
-                        <span class="subtask-add pointer" onclick="newElement()">Add</span>	
-                    </div>
-                    <ul id="subtaskList"></ul>
-                    <div class="d-flex justify-content-right align-items-center gap-4">
-                        <input type="submit" value="Delete Task" class="pointer delete dstask font-bold border-none br-1">
-                        <span class="save dstask br-1 font-bold border-none pointer font-14" onclick="newTask()">Save Change</span>	
-                        <!-- <input type="submit" value="Save Change" class="save dstask br-1 font-bold border-none" onclick="newTask()"> -->
-                    </div>
-                </form>
+              <h2>Tasks</h2>
+              <form action="" class="taskInput" method="post">
+                <input type="text" class="font-14 d-block w-100 br-1 p-2 mt-3 newTask-input" id="inputTitle" placeholder="Task Title">
+                <textarea name="description" placeholder="Description" id="inputDescription" class="font-14 d-block w-100 br-1 p-2 mt-3 newTask-input-description" rows="3"></textarea>
+                <label for="list" class="mt-3 p-1 font-14">List</label>
+                <select id="list" name="list" class="font-14 mt-3 br-1">
+                  <option value="personal" class="font-14">Personal</option>
+                  <option value="Work" class="font-14">Work</option>
+                  <option value="Friends" class="font-14">Friends</option>
+                </select>
+                <br>
+                <label for="due-date" class="font-14 mt-3 p-1 br-1">Due Date</label>
+                <input type="date" name="due-date" id="due-date" class="font-14 mt-3 br-1">
+                <br>
+                
+                <h3 class="pt-4">Subtasks</h3>
+                <div class="pt-4 d-flex font-14">
+                  <input type="text" placeholder="+ Add Task" id="subtaskInput" class="br-1 subtask-input p-1 border-none">
+                  <span class="subtask-add pointer" onclick="newElement()">Add</span>	
+                </div>
+                <ul id="subtaskList"></ul>
+                
+                <div class="d-flex justify-content-right align-items-center gap-4">
+                  <input type="button" value="Delete Task" class="pointer delete dstask font-bold border-none br-1" onclick="deleteTask()">
+                  <span class="save dstask br-1 font-bold border-none pointer font-14" onclick="newTask()">Save Change</span>	
+                </div>
+              </form>
             </div>
-        </div>
+          </div>
+          
     </div> 
     <script src="js/script.js"></script>
     <script>
